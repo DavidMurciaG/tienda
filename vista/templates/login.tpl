@@ -15,11 +15,11 @@
         <div><span class='error'>{$error}</span></div>
         <div class='campo'>
             <label for='usuario' >Usuario:</label><br/>
-            <input type='text' name='usuario' id='usuario' maxlength="50" /><br/>
+            <input type='text' name='usuario' id='usuario' value='dwes' maxlength="50" /><br/>
         </div>
         <div class='campo'>
             <label for='password' >Contraseña:</label><br/>
-            <input type='password' name='password' id='password' maxlength="50" /><br/>
+            <input type='password' name='password' id='password' value='abc123.' maxlength="50" /><br/>
         </div>
  
         <div class='campo'>

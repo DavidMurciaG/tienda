@@ -1,5 +1,7 @@
 <?php
 
+include 'd:\wamp64\www\tienda\clases\Producto.php';
+
 class DB {
 
 //atributo privado de conexión
@@ -76,7 +78,19 @@ FIN;
     }
 
     public static function obtieneProductos() {
-        
+
+        $sql = "SELECT cod, nombre_corto, nombre, PVP FROM producto;";
+        $resultado = self::ejecutaConsulta($sql);
+        $productos = array();
+
+        if ($resultado) {
+            // Añadimos un elemento por cada producto obtenido
+            while ($row = $resultado->fetch()) {
+                $productos[] = new Producto($row);
+            }
+        }
+
+        return $productos;
     }
 
 }

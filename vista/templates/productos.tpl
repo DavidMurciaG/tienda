@@ -9,7 +9,7 @@
        {*primero solo visualizaremos que el usuario está conectado*}
        <h1>Bienvenido a esta página {$usuario}</h1>
        <hr/>
-       <h3>En breve visualizará una lista de productos para hacer su compra</h3>
- 
+       <h3>Listado de Productos</h3>
+        {$listado}
     </body>
 </html>
