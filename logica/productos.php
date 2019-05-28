@@ -2,6 +2,7 @@
 
 session_start();
 include 'd:\wamp64\www\tienda\clases\DB.php';
+include 'd:\wamp64\www\tienda\clases\Cesta.php';
 
 require('Smarty.class.php');
 $smarty = new Smarty;
@@ -16,11 +17,20 @@ if (isset($_SESSION['usuario'])) {
         $cod = $list->getcodigo();
 
         $nc = $list->getnombrecorto();
-        $listado .="<input type='submit' value='Añadir' name='anadir'>"
-                . " $cod " . "$nc: $pvp €<br>";
+        $listado .="<form action='productos.php' method='POST'>.<input type='submit' value='Añadir' name='anadir'>"
+                . " $cod " . "$nc: $pvp €<br>"
+                . "<input type='hidden' value='$cod' name='cod'>"
+                . "</form>";
+        if (isset($_POST['añadir'])) {
+            $cesta->add_producto($cod);
+            $cod = $_POST['cod'];
+            $producto = DB::obtieneProducto($cod);
+            $cesta = array_push(Cesta::$productos_cesta, $producto);
+        }
     }
 
     $smarty->assign("listado", $listado);
+    $smarty->assign("cesta", $cesta);
     $smarty->display('productos.tpl');
 } else {
     header('Location: http://localhost/tienda/logica/login.php');

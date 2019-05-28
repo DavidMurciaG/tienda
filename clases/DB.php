@@ -93,7 +93,29 @@ FIN;
         return $productos;
     }
 
-}
+    public static function obtieneProducto($codigo) {
 
+        $valores = array('cod' => $codigo);
+        $sql = <<<FIN
+        SELECT cod, nombre_corto, nombre, PVP
+        FROM producto 
+        WHERE cod = :cod
+FIN;
+        $resultado = self::ejecutaConsulta($sql, $valores);
+        $producto = null;
+        if (isset($resultado)) {
+            $row = $resultado->fetch();
+            $producto = new Producto($row);
+        }
+        return $producto;
+    }
+    public static function getProducto($cod) {
+        $sentencia = "select * from producto where cod=?";
+        $valores = [0 => $cod];
+        $productos = self::ejecutaConsulta($sentencia, $valores);
+        return $productos[0];
+    }
+
+}
 //End de la clase DB.php
 ?>
