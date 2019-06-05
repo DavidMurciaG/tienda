@@ -1,0 +1,11 @@
+
+.cesta{
+    display:block;
+    margin-left: 50em;
+    background-color: #f5f5dc;
+    float:right;
+}
+
+.productos{
+    float:left;
+}

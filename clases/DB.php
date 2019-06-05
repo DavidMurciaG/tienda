@@ -1,6 +1,6 @@
 <?php
 
-include 'd:\wamp64\www\tienda\clases\Producto.php';
+include '..\clases\Producto.php';
 
 class DB {
 
@@ -77,6 +77,10 @@ FIN;
         return $verificado;
     }
 
+    /**
+     * 
+     * @return \Producto
+     */
     public static function obtieneProductos() {
 
         $sql = "SELECT cod, nombre_corto, nombre, PVP FROM producto;";
@@ -93,6 +97,11 @@ FIN;
         return $productos;
     }
 
+    /**
+     * 
+     * @param type $codigo
+     * @return \Producto
+     */
     public static function obtieneProducto($codigo) {
 
         $valores = array('cod' => $codigo);
@@ -102,6 +111,7 @@ FIN;
         WHERE cod = :cod
 FIN;
         $resultado = self::ejecutaConsulta($sql, $valores);
+        //Se inicia a nulo para que si no lo encuentra devuelva un producto nulo
         $producto = null;
         if (isset($resultado)) {
             $row = $resultado->fetch();
@@ -109,13 +119,7 @@ FIN;
         }
         return $producto;
     }
-    public static function getProducto($cod) {
-        $sentencia = "select * from producto where cod=?";
-        $valores = [0 => $cod];
-        $productos = self::ejecutaConsulta($sentencia, $valores);
-        return $productos[0];
-    }
 
 }
-//End de la clase DB.php
+
 ?>
