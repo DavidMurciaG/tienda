@@ -17,18 +17,13 @@
                 <input name="cmd" type="hidden" value="_cart" />
                 <input name="upload" type="hidden" value="1" />
                 <!--Mi correo de pay pall-->
-                <input name="business" type="hidden" value="Zaraguaza87-facilitator@iesandorra.es" />
-                <input name="shopping_url" type="hidden" value="http://vista/templates/pago.tpl" />
+                <input name="business" type="hidden" value="davimurcia-facilitator@hotmail.com" />
+                <input name="shopping_url" type="hidden" value="http://Localhost/tienda/logica/productos.php" />
                 <input name="currency_code" type="hidden" value="EUR" />
-                <input name="return" type="hidden" value="http://vista/templates/pago.tpl%22/%3E
-                <input name="notify_url" type="hidden" value="http://vista/templates/pago.tpl" />
+                <input name="return" type="hidden" value="http://Localhost/tienda/logica/productos.php"
+                <input name="notify_url" type="hidden" value="http://Localhost/tienda/logica/productos.php" />
                 <input name="rm" type="hidden" value="2" />
 
-                <!--pasamos el contenido de la factura y mostramos el boton ( foto de paypal) -->
-                <tr class="pago">
-                  <td class="pago"></td>
-                  <td class="pago"></td>
-                  <td class="pago"></td>
                     <input type="hidden" name="item_name_total" value="total">
                     <input type="hidden" name="amount_1" value="1">
                     <input type="hidden" name="quantity_total" value="{$total}">
