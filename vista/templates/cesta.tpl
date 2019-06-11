@@ -1,38 +1,63 @@
-{if (isset($productos))}
-<h2>Listado de cesta</h2>
-    {$total=0}
-    {foreach $productos as $producto=>$unidades}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+    <div class="cesta">
+        {if (isset($productos))}
+        <h2>Listado de cesta</h2> {$total=0}
+        <!--recorremos los productos de la cesta y vamos mostrando lo que nos interesa:  -->
+        {foreach $productos as $producto=>$unidades}
         <form action='productos.php' method='POST'>
-        {$unidades['unidades']} {$unidades['productos']->getnombrecorto()} -> {$unidades['unidades']*$unidades['productos']->getPVP()}€
-        {$total=$total+($unidades['unidades']*$unidades['productos']->getPVP())}
-        <input type='hidden' value='{$producto}' name='cod'>
-        <input type='submit' name='descontar' value='Descontar'/><br/>  
+            <!--vamos imprimiento los productos con UNIDADES, CODIGO, PVP y PVP total:  -->
+            <strong>  {$unidades['unidades']}</strong> unidades de: <strong>{$unidades['productos']->getnombrecorto()}</strong> precio unidad: <strong>{$unidades['productos']->getPVP() } €</strong> TOTAL: <strong>{$unidades['unidades']*$unidades['productos']->getPVP() }</strong>€ {$total=$total+($unidades['unidades']*$unidades['productos']->getPVP())}
+            <!--guardamos el codigo del producto y añadimos un boton de quitar producto:-->
+            <input type='hidden' value='{$producto}' name='cod'>
+            <input type='submit' name='quitar' value='Quitar' />
+            <br/>
+        </form>
+        <br /> {/foreach}
         <hr/>
-        </form>
+    </div>
+    <!--Mostramos el precio total-->
+    <strong>Importe total: </strong>{$total}€
 
-    {/foreach}
-    <strong>Importe total:<strong>{$total}€
-            <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-                <!--Datos para pagar paypal-->
-                <input name="cmd" type="hidden" value="_cart" />
-                <input name="upload" type="hidden" value="1" />
-                <!--Mi correo de pay pall-->
-                <input name="business" type="hidden" value="davimurcia-facilitator@hotmail.com" />
-                <input name="shopping_url" type="hidden" value="http://Localhost/tienda/logica/productos.php" />
-                <input name="currency_code" type="hidden" value="EUR" />
-                <input name="return" type="hidden" value="http://Localhost/tienda/logica/productos.php"
-                <input name="notify_url" type="hidden" value="http://Localhost/tienda/logica/productos.php" />
-                <input name="rm" type="hidden" value="2" />
+    <!--Boton PAGAR ( PayPal )e informacion -->
+    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+        <!--Datos para pagar paypal-->
+        <input name="cmd" type="hidden" value="_cart" />
+        <input name="upload" type="hidden" value="1" />
+        <!--Mi correo de pay pall-->
+        <input name="business" type="hidden" value="davidmurcia_18-facilitator@hotmail.com" />
 
-                    <input type="hidden" name="item_name_total" value="total">
-                    <input type="hidden" name="amount_1" value="1">
-                    <input type="hidden" name="quantity_total" value="{$total}">
-                </tr>
-                <input type="image" src="http://www.paypal.com/es_ES/i/btn/x-click-but01.gif" border="0" name="submit" alt="Realice pagos con PayPal: es rápido, gratis y seguro">
-        </form>
+        <input name="shopping_url" type="hidden" value="http://localhost/tienda/logica/productos.php" />
+        <input name="return" type="hidden" value="http://localhost/tienda/logica/notify_url.php" />
+        <input name="notify_url" type="hidden" value="http://localhost/tienda/logica/notify_url.php" />
+        <input name="rm" type="hidden" value="1" />
 
-    <form action='productos.php' method='POST'>
-    <input type="submit" value='vaciar' name="Vaciar"/>
-    <input type="submit" value='pagar' name="Pagar"/>
+        <input name="currency_code" type="hidden" value="EUR" />
+
+        <!--pasamos el contenido de la factura y mostramos el boton ( foto de paypal) -->
+        {$n=1} {foreach $productos as $producto}
+
+        <!--vamos imprimiento los productos con UNIDADES, CODIGO, PVP y PVP total:  -->
+        <input type="hidden" name="item_name_{$n}" value="{$producto['productos']->getnombrecorto()}">
+        <input type="hidden" name="amount_{$n}" value="{$producto['productos']->getPVP()}">
+        <input type="hidden" name="quantity_{$n}" value="{$producto['unidades']}"> {$n=$n+1} {/foreach}
+
+        <!--boton de paypal -->
+        <input type="image" src="http://www.paypal.com/es_ES/i/btn/x-click-but01.gif" border="0" name="submit" alt="Realice pagos con PayPal: es rápido, gratis y seguro">
     </form>
-{/if}
+    <hr/>
+    <br/>
+    <!--Boton VACIAR CESTA-->
+    <form action='productos.php' method='POST'>
+        <input type="submit" value='Vaciar' name="Vaciar" />
+    </form>
+    {/if}
+</body>
+
+</html>
