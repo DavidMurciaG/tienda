@@ -1,6 +1,6 @@
 <?php
-
-include '..\clases\DB.php';
+        const D = DIRECTORY_SEPARATOR;
+include '..' . D . 'clases' . D . 'DB.php';
 session_start();
 require('Smarty.class.php');
 $smarty = new Smarty;
